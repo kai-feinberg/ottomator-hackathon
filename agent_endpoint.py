@@ -150,18 +150,23 @@ async def sample_supabase_agent(
             print(result)
             print(type(result))
             ## check type of result
-            # parts = result._all_messages
+
             tool_results = {}
 
-            #IMPORTANT  
-            # note that _all_messages is all messages IN RESULT NOT THE CONVERSATION
             for msg in result._all_messages:
                 for part in msg.parts:
                     if part.part_kind == "tool-return":
-                        tool_results[part.tool_call_id] = {'result': part.content}
+                        tool_call_id = part.tool_call_id
+                        tool_results[tool_call_id] = {
+                            **tool_results.get(tool_call_id, {}),  # Preserve existing 'args'
+                            'result': part.content,
+                        }
                     elif part.part_kind == "tool-call":
-                        tool_results[part.tool_call_id] = {'args': json.loads(part.args.args_json), **tool_results.get(part.tool_call_id, {})}
-
+                        tool_call_id = part.tool_call_id
+                        tool_results[tool_call_id] = {
+                            'args': json.loads(part.args.args_json),
+                            **tool_results.get(tool_call_id, {}),  # Preserve existing 'result'
+                        }
         # Store agent's response
         await store_message(
             session_id=request.session_id,
