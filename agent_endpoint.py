@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 import os
 import httpx
+import json
 from ai_agent import ai_agent, Deps
 
 from pydantic_ai.messages import (
@@ -150,21 +151,23 @@ async def sample_supabase_agent(
             print(type(result))
             ## check type of result
             # parts = result._all_messages
-            tool_result = {}
+            tool_results = {}
 
             #IMPORTANT  
             # note that _all_messages is all messages IN RESULT NOT THE CONVERSATION
             for msg in result._all_messages:
                 for part in msg.parts:
                     if part.part_kind == "tool-return":
-                        tool_result = part.content
-            
+                        tool_results[part.tool_call_id] = {'result': part.content}
+                    elif part.part_kind == "tool-call":
+                        tool_results[part.tool_call_id] = {'args': json.loads(part.args.args_json), **tool_results.get(part.tool_call_id, {})}
+
         # Store agent's response
         await store_message(
             session_id=request.session_id,
             message_type="ai",
             content=result.data,
-            data={"tool_result": tool_result} # TODO add the data from the tool call
+            data={"tool_results": tool_results} # TODO add the data from the tool call
         )
 
         return AgentResponse(success=True)

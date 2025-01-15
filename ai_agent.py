@@ -17,7 +17,7 @@ from pydantic_ai.models.openai import OpenAIModel
 from pydantic_ai import Agent, ModelRetry, RunContext
 
 load_dotenv()
-# llm = os.getenv('LLM_MODEL', 'google/gemini-2.0-flash-exp:free')
+# llm = os.getenv('LLM_MODEL', 'deepseek/deepseek-chat')
 llm = os.getenv('LLM_MODEL', 'gpt-4o')
 
 
