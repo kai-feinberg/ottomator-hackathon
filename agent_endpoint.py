@@ -8,8 +8,15 @@ from dotenv import load_dotenv
 from pathlib import Path
 import sys
 import os
+import httpx
 from ai_agent import ai_agent, Deps
 
+from pydantic_ai.messages import (
+    ModelRequest,
+    ModelResponse,
+    UserPromptPart,
+    TextPart,
+    ToolReturnPart)
 # Load environment variables
 load_dotenv()
 
@@ -105,7 +112,7 @@ async def sample_supabase_agent(
             msg_data = msg["message"]
             msg_type = msg_data["type"]
             msg_content = msg_data["content"]
-            msg = {"role": msg_type, "content": msg_content}
+            msg = ModelRequest(parts=[UserPromptPart(content=msg_content)]) if msg_type == "human" else ModelResponse(parts=[TextPart(content=msg_content)])
             messages.append(msg)
 
         # Store user's query
@@ -114,7 +121,6 @@ async def sample_supabase_agent(
             message_type="human",
             content=request.query
         )            
-
 
         # Initialize agent dependencies
         async with httpx.AsyncClient() as client:
@@ -134,18 +140,31 @@ async def sample_supabase_agent(
                 - Use request.session_id if you need to insert more messages into the DB in the agent logic.
             """
             # Run the agent with conversation history
-            result = await github_agent.run(
+            result = await ai_agent.run(
                 request.query,
                 message_history=messages,
                 deps=deps
             )
-    
+
+            print(result)
+            print(type(result))
+            ## check type of result
+            # parts = result._all_messages
+            tool_result = {}
+
+            #IMPORTANT  
+            # note that _all_messages is all messages IN RESULT NOT THE CONVERSATION
+            for msg in result._all_messages:
+                for part in msg.parts:
+                    if part.part_kind == "tool-return":
+                        tool_result = part.content
+            
         # Store agent's response
         await store_message(
             session_id=request.session_id,
             message_type="ai",
-            content=agent_response,
-            data={"request_id": request.request_id}
+            content=result.data,
+            data={"tool_result": tool_result} # TODO add the data from the tool call
         )
 
         return AgentResponse(success=True)
