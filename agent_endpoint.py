@@ -165,6 +165,7 @@ async def sample_supabase_agent(
                         tool_call_id = part.tool_call_id
                         tool_results[tool_call_id] = {
                             'args': json.loads(part.args.args_json),
+                            'tool_name': part.tool_name,
                             **tool_results.get(tool_call_id, {}),  # Preserve existing 'result'
                         }
         # Store agent's response
