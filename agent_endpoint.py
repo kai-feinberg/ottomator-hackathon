@@ -128,7 +128,8 @@ async def sample_supabase_agent(
             deps = Deps(
                 client=client,
                 reddit_client_id=os.getenv("REDDIT_CLIENT_ID", None),
-                reddit_client_secret=os.getenv("REDDIT_CLIENT_SECRET", None)
+                reddit_client_secret=os.getenv("REDDIT_CLIENT_SECRET", None),
+                brave_api_key=os.getenv("BRAVE_API_KEY", None),
             )
 
             """
@@ -142,7 +143,7 @@ async def sample_supabase_agent(
             """
             # Run the agent with conversation history
             result = await ai_agent.run(
-                request.query,
+                "use Reddit to answer this query: " + request.query,
                 message_history=messages,
                 deps=deps
             )
