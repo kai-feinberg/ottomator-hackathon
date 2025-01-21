@@ -148,10 +148,6 @@ async def sample_supabase_agent(
                 deps=deps
             )
 
-            print(result)
-            print(type(result))
-            ## check type of result
-
             tool_results = {}
 
             for msg in result._all_messages:
