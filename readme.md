@@ -82,6 +82,99 @@ to initially build the image. This will automatically sync your changes and give
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Custom UI (for a react front end)
+When a response is generated with will store a message with this schema
+
+```json
+{
+  "type": "ai",
+  "content": "Agent's response text",
+  "data": {
+    "...additional info for the frontend..."
+  }
+}
+```
+
+I have modified the endpoint to store the data from tool usage with the following schema in the data field. Args is the arguments used when calling the tool.
+Result is the data returned from the tool. Each tool is given a name such as `search_reddit` or `get_weather`. Each tool call is given a unique identifier.
+
+```json
+
+   tool_results: {
+      TOOL_CALL_IDENTIFIER: {
+         args: {
+            TOOL_ARGUMENTS: "DATA",
+         },
+         result: {
+            TOOL_DATA: "DATA"
+         },
+         tool_name: "MY_TOOL",
+      },
+      call___XXXXX {..}
+   }
+```
+
+<!-- Start of Selection -->
+<details>
+  <summary>Click to show example data</summary>
+
+  ```json
+  tool_results: {
+      call_0tNO9fe3yKtsWQnM5jq406xr: {
+        args: {
+          query: "minecraft",
+        },
+        result: {
+          subreddits: ["Minecraft", "MinecraftMemes", "MinecraftBuddies", "Minecraftbuilds", "teenagers"],
+        },
+        tool_name: "find_subreddits",
+      },
+      call_1xYZ9ab3cDtsWQnM5jq406yz: {
+        args: {
+          city: "New York",
+          date: "2023-05-15",
+        },
+        result: {
+          temperature: 72,
+          conditions: "Partly cloudy",
+          humidity: 65,
+        },
+        tool_name: "get_weather",
+      },
+  }
+  ```
+</details>
+
+
+There are two react components in the `/ui` folder making use of this tool data.
+
+`tool_results.tsx` takes any message and renders the tools used and each tools arguments and returned content
+
+`reddit_result.tsx` renders cards for any reddit posts that were fetched with the search reddit tool.
+
+I created these using v0 and you can see the chat here: [https://v0.dev/chat/tool-results-expander-D78mKUcHhDM](https://v0.dev/chat/tool-results-expander-D78mKUcHhDM)
+
+Here is an example of how the components look
+![Reddit ui components](public/reddit_ui_components.gif)
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Absolutely enormous shoutout to Cole Medin for putting on this hackathon and providing the resources/help to make some really cool agents.
+
+Here's his template for creating agents with python, pydantic, and supabase.
+
+[https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py](https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py)
+
+Here is his super helpful developer guide:
+[https://studio.ottomator.ai/guide](https://studio.ottomator.ai/guide)
+
+Cole also has countless videos on his channel that are super handy for building ai agents both with pydantic and no code/low code tools:
+[Cole's youtube channel](https://www.youtube.com/@ColeMedin)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- LICENSE -->
 ## License
@@ -101,22 +194,5 @@ Kai Feinberg - [kaifeinberg.dev](https://www.kaifeinberg.dev/)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Absolutely enormous shoutout to Cole Medin for putting on this hackathon and providing the resources/help to make some really cool agents.
-
-Here's his template for creating agents with python, pydantic, and supabase.
-
-[https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py](https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py)
-
-Here is his super helpful developer guide:
-[https://studio.ottomator.ai/guide](https://studio.ottomator.ai/guide)
-
-Cole also has countless videos on his channel that are super handy for building ai agents both with pydantic and no code/low code tools:
-[Cole's youtube channel](https://www.youtube.com/@ColeMedin)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
