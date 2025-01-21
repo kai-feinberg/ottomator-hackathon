@@ -5,7 +5,7 @@
 <!-- ABOUT THE PROJECT -->
 With more AI generated content every day it has become harder to find reliable information. Many people have turned to Reddit as the last source of human truth. This agent speeds up your research process by identifying relevant reddit posts and extracting insights from the post and comments. This is an easy way to integrate reddit results into your agents and can be combined with youtube search, twitter search, or other apis in order to automate consumer research.
 
-![Reddit Agent Demo](reddit_agent_demo.gif)
+![Reddit Agent Demo](public/reddit_agent_demo.gif)
 
 check out the full demo video here: [](link)
 
@@ -28,7 +28,10 @@ And check out the walkthrough for how I made it here: COMING SOON!
 
 The search process takes place in the `search_reddit` function in the `ai_agent.py` file. It takes in a query which it uses to search the web. It then parse the top links (if the are reddit posts) and extracts the post data and the data from the top (most upvoted) comments.
 
-***Its worth noting that you can search Reddit via their api or via PRAW. However, it tends to give results that are much less consistent and will often include long posts from subreddits like relationship advice. I think using the Brave search api is a great pattern for integrating search without having to interact with another api. For example you could append "youtube" to the end of a query and get urls of youtube videos all without actual credentials to youtube's api.
+![How it works](public/how_it_works.png)
+
+
+*Its worth noting that you can search Reddit via their api or via PRAW. However, it tends to give results that are much less consistent and will often include long posts from subreddits like relationship advice. I think using the Brave search api is a great pattern for integrating search without having to interact with another api. For example you could append "youtube" to the end of a query and get urls of youtube videos all without actual credentials to youtube's api.
 
 
 ## How is this better than Reddit Answers (currently in beta)
