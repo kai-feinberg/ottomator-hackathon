@@ -3,9 +3,9 @@
 
 # r/askAgent
 <!-- ABOUT THE PROJECT -->
-With more AI generated content every day it becomes harder and harder to find reliable information. Many people have turned to Reddit as the last source of human truth. This agent speeds up your research process by identifying relevant reddit posts and extracting insights from the post and comments. This is an easy way to integrate reddit results into your agents and can be combined with youtube search, twitter search,
+With more AI generated content every day it has become harder to find reliable information. Many people have turned to Reddit as the last source of human truth. This agent speeds up your research process by identifying relevant reddit posts and extracting insights from the post and comments. This is an easy way to integrate reddit results into your agents and can be combined with youtube search, twitter search, or other apis in order to automate consumer research.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com) 
+![Reddit Agent Demo](reddit_agent_demo.gif)
 
 check out the full demo video here: [](link)
 
@@ -60,34 +60,22 @@ The search process takes place in the `search_reddit` function in the `ai_agent.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Note that this doesn't contain code for a full frontend you can interact with. Check out this TODO repo if you want a full streamlit interface for your agent.
+Note that this doesn't contain code for a full frontend you can interact with. Check out [this repo](https://github.com/kai-feinberg/reddit-agent) if you want a full streamlit interface for your agent.
 
-Edit/add to the ai agent's tools in `ai_agent.py`. If you introduce a new dependency make sure to add it to the context as well in the endpoint file. Highly recommend this video for a more in depth guide: TODO
-
+Edit/add to the ai agent's tools in `ai_agent.py`. If you introduce a new dependency make sure to add it to the context as well in the endpoint file. Highly recommend this video for a more in depth guide: [https://youtu.be/zf_D2Eafvk0?si=Uv0pxXXdEVjDvC6K](https://youtu.be/zf_D2Eafvk0?si=Uv0pxXXdEVjDvC6K)
 
 
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+1. Get API Keys for Brave and Reddit (instructions in `.env.example`)
+2. Rename `.env.example` to `.env` and add these keys and your open ai api key
+3. run 
+```sh
+docker compose up --build
+```
+to initially build the image. This will automatically sync your changes and give you live refreshes.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,7 +83,7 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. Feel free to clone it, distribute it, and share it. Pls credit me/hire me I'm just a poor college student lmao
+Distributed under the MIT License. Feel free to clone it, distribute it, and do whatever. Pls credit me/hire me I'm just a poor college student lmao
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,9 +92,8 @@ Distributed under the MIT License. Feel free to clone it, distribute it, and sha
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Kai Feinberg - [kaifeinberg.dev](https://www.kaifeinberg.dev/)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,14 +106,13 @@ Absolutely enormous shoutout to Cole Medin for putting on this hackathon and pro
 
 Here's his template for creating agents with python, pydantic, and supabase.
 
-TODO
+[https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py](https://github.com/coleam00/ottomator-agents/blob/main/~sample-python-agent~/sample_supabase_agent.py)
 
 Here is his super helpful developer guide:
-TODO
+[https://studio.ottomator.ai/guide](https://studio.ottomator.ai/guide)
 
-And huge shoutout to the thinktank
-TODO
-
+Cole also has countless videos on his channel that are super handy for building ai agents both with pydantic and no code/low code tools:
+[Cole's youtube channel](https://www.youtube.com/@ColeMedin)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
