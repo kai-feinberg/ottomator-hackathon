@@ -11,6 +11,7 @@ check out the full demo video here: [](link)
 
 And check out the walkthrough for how I made it here: COMING SOON!
 
+
 ## What can this agent do?
 
 * Find the best restaurants in Chicago?
@@ -23,6 +24,14 @@ And check out the walkthrough for how I made it here: COMING SOON!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+## Custom UI for tool calls
+
+See the arguments and results from tool calls as well as a custom card for each post fetched by the `search_reddit` tool.
+
+![Reddit ui components](public/reddit_ui_components.gif)
+
+* note that the ui folder is not an app itself just a collection of react components that can be pasted elsewhere
 
 ## How does it work
 
@@ -74,11 +83,16 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Get API Keys for Brave and Reddit (instructions in `.env.example`)
 2. Rename `.env.example` to `.env` and add these keys and your open ai api key
-3. run 
+3. install the requirements (it is recommended to use a vitual environment such as venv)
 ```sh
-docker compose up --build
+   pip install -r requirements.txt
 ```
-to initially build the image. This will automatically sync your changes and give you live refreshes.
+4. run the endpoint
+```sh 
+python ./agent_endpoint.py
+```
+5. I recommend using agent 0 to interact with your agent. Follow this guide to get it set up. [https://www.youtube.com/watch?v=7XZbI_ez8_U](https://www.youtube.com/watch?v=7XZbI_ez8_U)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,16 +113,15 @@ I have modified the endpoint to store the data from tool usage with the followin
 Result is the data returned from the tool. Each tool is given a name such as `search_reddit` or `get_weather`. Each tool call is given a unique identifier.
 
 ```json
-
-   tool_results: {
-      TOOL_CALL_IDENTIFIER: {
-         args: {
-            TOOL_ARGUMENTS: "DATA",
+   "tool_results": {
+      "TOOL_CALL_IDENTIFIER": {
+         "args": {
+            "TOOL_ARGUMENTS": "DATA"
          },
-         result: {
-            TOOL_DATA: "DATA"
+         "result": {
+            "TOOL_DATA": "DATA"
          },
-         tool_name: "MY_TOOL",
+         "tool_name": "MY_TOOL"
       },
       call___XXXXX {..}
    }
@@ -116,33 +129,34 @@ Result is the data returned from the tool. Each tool is given a name such as `se
 
 <!-- Start of Selection -->
 <details>
-  <summary>Click to show example data</summary>
+  <summary>CLICK FOR EXAMPLE DATA</summary>
 
   ```json
-  tool_results: {
-      call_0tNO9fe3yKtsWQnM5jq406xr: {
-        args: {
-          query: "minecraft",
+  "tool_results": {
+      "call_0tNO9fe3yKtsWQnM5jq406xr": {
+        "args": {
+          "query": "minecraft"
         },
-        result: {
-          subreddits: ["Minecraft", "MinecraftMemes", "MinecraftBuddies", "Minecraftbuilds", "teenagers"],
+        "result": {
+          "subreddits": ["Minecraft", "MinecraftMemes", "MinecraftBuddies", "Minecraftbuilds", "teenagers"]
         },
-        tool_name: "find_subreddits",
+        "tool_name": "find_subreddits"
       },
-      call_1xYZ9ab3cDtsWQnM5jq406yz: {
-        args: {
-          city: "New York",
-          date: "2023-05-15",
+      "call_1xYZ9ab3cDtsWQnM5jq406yz": {
+        "args": {
+          "city": "New York",
+          "date": "2023-05-15"
         },
-        result: {
-          temperature: 72,
-          conditions: "Partly cloudy",
-          humidity: 65,
+        "result": {
+          "temperature": 72,
+          "conditions": "Partly cloudy",
+          "humidity": 65
         },
-        tool_name: "get_weather",
-      },
+        "tool_name": "get_weather"
+      }
   }
   ```
+
 </details>
 
 
