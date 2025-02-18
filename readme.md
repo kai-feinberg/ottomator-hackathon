@@ -1,7 +1,8 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
-# r/askAgent
+#  🏅 4th Place in the Ottomator Hackathon
+# r/askAgent 
 <!-- ABOUT THE PROJECT -->
 With more AI generated content every day it has become harder to find reliable information. Many people have turned to Reddit as the last source of human truth. This agent speeds up your research process by identifying relevant reddit posts and extracting insights from the post and comments. This is an easy way to integrate reddit results into your agents and can be combined with youtube search, twitter search, or other apis in order to automate consumer research.
 
